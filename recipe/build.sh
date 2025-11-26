@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Relocate CUDA major specific libraries to single prefix layout
+export CUDA_MAJOR=${cuda_compiler_version%%.*}
+mv -v lib lib.backup
+mv -v lib.backup/${CUDA_MAJOR} lib
+rm -rv lib.backup
+
 # Install to conda style directories
 [[ -d lib64 ]] && mv lib64 lib
 mkdir -p ${PREFIX}/lib
@@ -13,4 +19,4 @@ for i in `ls`; do
     cp -rv $i ${PREFIX}
 done
 
-check-glibc $PREFIX/lib/*.so.*
+check-glibc "$PREFIX"/lib*/*.so.* "$PREFIX"/bin/* "$PREFIX"/targets/*/lib*/*.so.* "$PREFIX"/targets/*/bin/*
