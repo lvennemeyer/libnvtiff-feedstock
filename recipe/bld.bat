@@ -11,5 +11,5 @@ move lib.backup\%CUDA_MAJOR% lib
 if not exist %PREFIX% mkdir %PREFIX%
 
 move lib\*.lib %LIBRARY_LIB%
-move lib\*.dll %LIBRARY_BIN%
+move lib\*.dll %LIBRARY_BIN% bin
 move include\* %LIBRARY_INC%
